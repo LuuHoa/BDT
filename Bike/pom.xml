@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <repositories>
+    <repository>
+      <id>cloudera</id>
+      <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+    </repository>
+  </repositories>
+
+  <groupId>cs523</groupId>
+  <artifactId>projectconsumer</artifactId>
+  <version>0.0.1</version>
+  <packaging>jar</packaging>
+
+  <name>projectconsumer</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+  	<dependency>
+    	<groupId>org.apache.spark</groupId>
+    	<artifactId>spark-core_2.10</artifactId>
+    	<version>1.6.0</version>
+    	<scope>provided</scope>
+	</dependency>
+	<dependency>
+    	<groupId>org.apache.spark</groupId>
+    	<artifactId>spark-streaming_2.10</artifactId>
+    	<version>1.6.0</version>
+    	<scope>provided</scope>
+	</dependency>
+	<dependency>
+    	<groupId>org.apache.spark</groupId>
+    	<artifactId>spark-streaming-kafka_2.10</artifactId>
+    	<version>1.6.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.hbase</groupId>
+    	<artifactId>hbase-client</artifactId>
+    	<version>1.2.0-cdh5.13.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.hbase</groupId>
+	    <artifactId>hbase-spark</artifactId>
+	    <version>1.2.0-cdh5.13.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.hive</groupId>
+	    <artifactId>hive-jdbc</artifactId>
+	    <version>1.1.0-cdh5.13.0</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.spark/spark-sql -->
+
+
+  </dependencies>
+  <build>
+    <plugins>
+    	<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+		  	<artifactId>maven-jar-plugin</artifactId>
+		  	<configuration>
+		    	<archive>
+		      		<manifest>
+		        		<mainClass>Comsumer.Bike.BikeStreaming2</mainClass>
+		      		</manifest>
+		    	</archive>
+		  	</configuration>
+		</plugin>
+		
+      	<plugin>
+      		<groupId>org.apache.maven.plugins</groupId>
+        	<artifactId>maven-assembly-plugin</artifactId>
+        	<configuration>
+        		<archive>
+             		<manifest>
+             			<addClasspath>true</addClasspath>
+                  		<mainClass>Comsumer.Bike.BikeStreaming2</mainClass>
+             		</manifest>
+        		</archive>
+   				<descriptorRefs>
+        			<descriptorRef>jar-with-dependencies</descriptorRef>
+    			</descriptorRefs>
+ 			</configuration>
+ 			<executions>
+    			<execution>
+      				<id>make-my-jar-with-dependencies</id>
+      				<phase>package</phase>
+						<goals>
+				        	<goal>single</goal>
+				      	</goals>
+    			</execution>
+  			</executions>
+		</plugin>
+	</plugins>
+  </build>
+</project>
